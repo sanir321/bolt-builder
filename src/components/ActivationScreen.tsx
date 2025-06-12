@@ -36,9 +36,8 @@ export const ActivationScreen: React.FC<ActivationScreenProps> = ({ onActivate }
                 className="w-24 h-24 rounded-full object-cover"
               />
             </div>
-            <h1 className="text-2xl font-bold text-white mb-2 flex items-baseline space-x-1">
-  <span>Crypto app</span>
-  <span className="text-xs font-normal translate-y-1">v2.1</span>
+           <h1 className="text-2xl font-bold text-white mb-2 text-center">
+  Crypto app <span className="text-xs font-normal align-bottom translate-y-1">v2.1</span>
 </h1>
 
 
