@@ -20,71 +20,73 @@ export const SearchTab: React.FC<SearchTabProps> = ({ state, onStartSearch, onPa
   }, [state.walletsChecked, state.isSearching]);
 
   return (
-    <div className="p-6 space-y-6 h-screen flex flex-col">
-      <div className="text-center">
-        <h2 className="text-2xl font-bold text-white mb-2">Wallet Search</h2>
-        <p className="text-gray-400">Real-time blockchain wallet discovery</p>
-      </div>
+    <div className="p-6 h-screen flex flex-col justify-between space-y-6">
+      <div>
+        <div className="text-center mb-4">
+          <h2 className="text-2xl font-bold text-white mb-2">Wallet Search</h2>
+          <p className="text-gray-400">Real-time blockchain wallet discovery</p>
+        </div>
 
-      {/* Last Found Wallet */}
-      {lastFoundWallet && (
-        <div className="bg-gradient-to-r from-purple-600/30 to-pink-600/30 backdrop-blur-lg rounded-xl p-4 border border-purple-500/50">
-          <p className="text-purple-400 text-sm font-semibold mb-2">Last founded</p>
-          <div className="bg-black/30 rounded-lg p-3 flex items-center">
-            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm mr-3">
-              {lastFoundWallet.symbol[0]}
-            </div>
-            <div>
-              <p className="text-white font-bold">
-                {lastFoundWallet.amount.toFixed(3)} {lastFoundWallet.symbol}
-              </p>
-              <p className="text-green-400 font-semibold">${lastFoundWallet.usdValue.toFixed(2)}</p>
+        {/* Last Found Wallet */}
+        {lastFoundWallet && (
+          <div className="bg-gradient-to-r from-purple-600/30 to-pink-600/30 backdrop-blur-lg rounded-xl p-4 border border-purple-500/50 mb-4">
+            <p className="text-purple-400 text-sm font-semibold mb-2">Last founded</p>
+            <div className="bg-black/30 rounded-lg p-3 flex items-center">
+              <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white font-bold text-sm mr-3">
+                {lastFoundWallet.symbol[0]}
+              </div>
+              <div>
+                <p className="text-white font-bold">
+                  {lastFoundWallet.amount.toFixed(3)} {lastFoundWallet.symbol}
+                </p>
+                <p className="text-green-400 font-semibold">${lastFoundWallet.usdValue.toFixed(2)}</p>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Scrolling Search Results */}
-      <div className="bg-black/40 backdrop-blur-lg rounded-xl border border-white/20 overflow-hidden" style={{ maxHeight: '250px' }}>
-        <div 
-          ref={scrollRef}
-          className="overflow-y-auto p-4 space-y-1"
-          style={{ scrollBehavior: state.isSearching ? 'auto' : 'smooth' }}
-        >
-          {state.searchEntries.map((entry) => (
-            <div 
-              key={entry.id} 
-              className={`text-sm font-mono transition-all duration-200 ${
-                entry.hasBalance 
-                  ? 'text-green-400 bg-green-400/10 px-2 py-1 rounded' 
-                  : 'text-gray-400'
-              }`}
-            >
-              <span className="text-gray-500">Balance: </span>
-              <span className={entry.hasBalance ? 'text-green-400' : 'text-white'}>
-                {entry.hasBalance ? entry.balance : '0'}
-              </span>
-              <span className="text-gray-500"> | Wallet check: </span>
-              <span className="text-gray-300">{entry.phrase}</span>
-            </div>
-          ))}
+        {/* Fixed-Height Scrolling Search Results */}
+        <div className="bg-black/40 backdrop-blur-lg rounded-xl border border-white/20 overflow-hidden h-[50vh]">
+          <div
+            ref={scrollRef}
+            className="overflow-y-auto p-4 space-y-1 h-full"
+            style={{ scrollBehavior: state.isSearching ? 'auto' : 'smooth' }}
+          >
+            {state.searchEntries.map((entry) => (
+              <div
+                key={entry.id}
+                className={`text-sm font-mono transition-all duration-200 ${
+                  entry.hasBalance
+                    ? 'text-green-400 bg-green-400/10 px-2 py-1 rounded'
+                    : 'text-gray-400'
+                }`}
+              >
+                <span className="text-gray-500">Balance: </span>
+                <span className={entry.hasBalance ? 'text-green-400' : 'text-white'}>
+                  {entry.hasBalance ? entry.balance : '0'}
+                </span>
+                <span className="text-gray-500"> | Wallet check: </span>
+                <span className="text-gray-300">{entry.phrase}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Stats Cards */}
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          <div className="bg-black/40 backdrop-blur-lg rounded-xl p-4 border border-white/20">
+            <p className="text-gray-400 text-sm">Wallets checked:</p>
+            <p className="text-2xl font-bold text-white">{state.walletsChecked.toLocaleString()}</p>
+          </div>
+
+          <div className="bg-black/40 backdrop-blur-lg rounded-xl p-4 border border-white/20">
+            <p className="text-gray-400 text-sm">Found:</p>
+            <p className="text-2xl font-bold text-green-400">${state.totalFound.toFixed(2)}</p>
+          </div>
         </div>
       </div>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-2 gap-4">
-        <div className="bg-black/40 backdrop-blur-lg rounded-xl p-4 border border-white/20">
-          <p className="text-gray-400 text-sm">Wallets checked:</p>
-          <p className="text-2xl font-bold text-white">{state.walletsChecked.toLocaleString()}</p>
-        </div>
-
-        <div className="bg-black/40 backdrop-blur-lg rounded-xl p-4 border border-white/20">
-          <p className="text-gray-400 text-sm">Found:</p>
-          <p className="text-2xl font-bold text-green-400">${state.totalFound.toFixed(2)}</p>
-        </div>
-      </div>
-
-      {/* Control Button */}
+      {/* Start/Pause Button - Always Visible */}
       <div className="text-center mt-4">
         <button
           onClick={state.isSearching ? onPauseSearch : onStartSearch}
