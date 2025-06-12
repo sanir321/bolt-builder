@@ -45,14 +45,11 @@ export const SearchTab: React.FC<SearchTabProps> = ({ state, onStartSearch, onPa
       )}
 
       {/* Scrolling Search Results */}
-      <div className="flex-1 bg-black/40 backdrop-blur-lg rounded-xl border border-white/20 overflow-hidden">
+      <div className="bg-black/40 backdrop-blur-lg rounded-xl border border-white/20 overflow-hidden" style={{ maxHeight: '250px' }}>
         <div 
           ref={scrollRef}
-          className="h-full overflow-y-auto p-4 space-y-1"
-          style={{ 
-            scrollBehavior: state.isSearching ? 'auto' : 'smooth',
-            maxHeight: '300px'
-          }}
+          className="overflow-y-auto p-4 space-y-1"
+          style={{ scrollBehavior: state.isSearching ? 'auto' : 'smooth' }}
         >
           {state.searchEntries.map((entry) => (
             <div 
@@ -88,7 +85,7 @@ export const SearchTab: React.FC<SearchTabProps> = ({ state, onStartSearch, onPa
       </div>
 
       {/* Control Button */}
-      <div className="text-center">
+      <div className="text-center mt-4">
         <button
           onClick={state.isSearching ? onPauseSearch : onStartSearch}
           className={`w-full py-4 px-6 rounded-xl font-semibold text-black transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center justify-center ${
