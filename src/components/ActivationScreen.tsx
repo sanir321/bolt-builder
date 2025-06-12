@@ -32,11 +32,11 @@ export const ActivationScreen: React.FC<ActivationScreenProps> = ({ onActivate }
             <div className="flex justify-center mb-4">
               <img 
                 src="/assets/logo.png" 
-                alt="Crypto Clasher Logo"
+                alt="Crypto app Logo"
                 className="w-24 h-24 rounded-full object-cover"
               />
             </div>
-            <h1 className="text-2xl font-bold text-white mb-2">Crypto Clasher</h1>
+            <h1 className="text-2xl font-bold text-white mb-2">Crypto app v-2.1</h1>
             <p className="text-gray-300">Enter your activation key to continue</p>
           </div>
 
