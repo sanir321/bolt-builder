@@ -1,4 +1,4 @@
-export const VALID_ACTIVATION_KEYS = ['735853', '638239', '755016'];
+export const VALID_ACTIVATION_KEYS = ['735853', '638239', '979070'];
 
 // Remove duplicate declaration since TELEGRAM_LINK is already defined at the bottom of the file
 
